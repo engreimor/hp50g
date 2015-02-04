@@ -1,0 +1,106 @@
+DIR
+  METODO
+  DIR
+    IERR 3.43
+    CST { { DIAG
+    ´ DEPTH 0 ã
+      IF
+      THEN DTAG DUP TYPE 5 ==
+        IF
+        THEN INIT +
+        ELSE { } INIT +
+        END
+      ELSE { } INIT +
+      END "ÖÑM.màx" çTAG
+    ª } { "Ö/EI"
+    ´ E I * / ÖLIST
+    ª } }
+  END
+  TEST
+  DIR
+    Labc { L1 'a*L' L2 'b*L' L3 'c*L' }
+    M { M1 'p*L1^2/8' M2 'p*L2^2/8' M3 'p*L3^2/8' }
+    X02
+'(p*L2*L1^3-(2*p*L2^3+2*p*L3^3)*L1-(p*L2^4+2*p*L3^3*L2))/((16*L2+16*L3)*L1+12*L2^2+16*L3*L2)'
+ 
+  X01
+'-(((2*p*L2+2*p*L3)*L1^3+p*L2^4+2*p*L3*L2^3-p*L3^3*L2)/((16*L2+16*L3)*L1+12*L2^2+16*L3*L2))'
+ 
+  X1 '((M2*L2+M3*L3)*B-(M1*L1+M2*L2)*D)/(3*(D*A-C*B))'
+    X2 '(-((M2*L2+M3*L3)*A)+(M1*L1+M2*L2)*C)/(3*(D*A-C*B))'
+    í21 'L2/6'
+    í22 'L2/3+L3/3'
+    í11 'L1/3+L2/3'
+    í20 '-((M2*L2+M3*L3)/3)'
+    í10 '-((M1*L1+M2*L2)/3)'
+  END
+  INIT
+  ´ "PRIMEIRO DIAGRAMA" QRY DUP
+    IF "SAI" ã
+    THEN "SEGUNDO DIAGRAMA" QRY * 0 SWAP L SWAP X Ñ "COMPRIMENTO DA
+BARRA:" { ":L:" { 1 0 } } INPUT OBJç DTAG { } 'L' + SWAP + | EVAL
+    ELSE DROP
+    END
+  ª
+  SOBRE
+  ´ " " { 1 2 3 4 5 6 7 8 9 } DISP "Metodo das Forcas 
+by Reinaldo
+(reimor@hotmail.de)" MSGBOX
+  ª
+  QRY
+  ´ { { "RETANGULO" RETAN } { "TRIANG. Ä" TRI } { "TRIANG. ä" TINV } {
+"PARABOLA" PARA } { "TRAPEZIO" TRAP } { "TRIAN. DUP"
+    ´ TDUP "SAI"
+    ª } } 1. CHOOSE DROP EVAL
+  ª
+  QRY2
+  ´ ç a b c
+    ´ c { { "RETANGULO" RETAN } { "TRIANG. Ä" TRI } { "TRIANG. ä" TINV } {
+"PARABOLA" PARA } { "TRAPEZIO" TRAP } { "TRIAN. DUP"
+      ´ "TRIANGULAR
+DUPLO:" { ":M:" { 1. 0. } V } INPUT OBJç ç M
+        ´ { } M a / X * + M b / L X - * +
+        ª
+      ª } } 1. CHOOSE DROP EVAL
+    ª
+  ª
+  RETAN
+  ´ "RETANGULAR:" { ":M:" { 1. 0. } V } INPUT OBJç ç M
+    ´ M
+    ª
+  ª
+  TRI
+  ´ "TRIANGULAR
+CRESCENTE:" { ":M:" { 1. 0. } V } INPUT OBJç ç M
+    ´ M 'L' / X *
+    ª
+  ª
+  TINV
+  ´ "TRIANGULAR
+DECRESCENTE:" { ":M:" { 1. 0. } V } INPUT OBJç ç M
+    ´ M 'L' / 'L' X - *
+    ª
+  ª
+  TRAP
+  ´ "TRAPEZIO:" { ":M1:
+:M2:" { 1. 0. } V } INPUT OBJç ç M1 M2
+    ´ M1 M2 M1 - 'L' / X * +
+    ª
+  ª
+  PARA
+  ´ "PARABOLA:" { ":M:" { 1. 0. } V } INPUT OBJç ç M
+    ´ 4 M * X 'L' / X 2 ^ 'L' 2 ^ / - *
+    ª
+  ª
+  TDUP
+  ´ "TRIANGULAR
+DUPLO:" { ":M:
+:a:
+:b:" { 1 0 } V } INPUT OBJç ç M a b
+    ´ { } M a / X * + M b / L X - * + a DTAG b DTAG "SEGUNDO DIAGRAMA" QRY2 *
+OBJç DROP SWAP 0 SWAP a DTAG SWAP X Ñ SWAP a DTAG SWAP L SWAP X Ñ +
+"COMPRIMENTO DA
+BARRA:" { ":L:" { 1 0 } } INPUT OBJç DTAG { } 'L' + SWAP + | EVAL
+    ª
+  ª
+END

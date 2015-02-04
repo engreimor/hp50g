@@ -1,0 +1,84 @@
+DIR
+  INIT
+  « CLEAN { { ENTRADA IN } xc yc ts K B } MENU
+  »
+  IN
+  « "Elementos fornecidos" { ":EST_PI:
+:LC:
+:RAIO:
+:DEFLEXAO:" { 1. 0. } V } INPUT OBJ  PI lc R I
+    « lc 'LC' STO R 'Raio' STO 'LC' 2. 'Raio' * / 'SC' STO PI 'EstPi' STO I
+'Defle' STO ESTACAS
+    »
+  »
+  CLEAN
+  « 'LC' PURGE 'Raio' PURGE 'SC' PURGE 'EstPi' PURGE 'Defle' PURGE 'AC' PURGE
+'CST' PURGE
+  »
+  xc
+  « 'LC' 'SC' 3. / * 1. 'SC' 2. ^ 14. / - 'SC' 4. ^ 440. / + * NUM "Xc" TAG
+  »
+  yc
+  « 'LC' 1. 'SC' 2. ^ 10. / - 'SC' 4. ^ 216. / + * NUM "Yc" TAG
+  »
+  ic
+  « RAD xc yc / ATAN EVAL NUM "ic" TAG
+  »
+  jc
+  « RAD 'SC' ic - EVAL NUM "jc" TAG
+  »
+  q
+  « RAD yc 'Raio' 'SC' SIN * - NUM "q" TAG
+  »
+  p
+  « RAD xc 'Raio' 1. 'SC' COS - * - NUM "p" TAG
+  »
+  ts
+  « q 'Raio' p + DEG 'Defle' 2. / TAN * + NUM 2. TRNC "Ts" TAG
+  »
+  K
+  « 180. 60. * ‡ / 6. 'Raio' 'LC' * * INV * EVAL NUM
+  »
+  B
+  « K 3. * EVAL NUM
+  »
+  ESTACAS
+  « EstTS EstSC EstCS EstST
+  »
+  EstTS
+  « 'EstPi' NUM ts ESTDIF NUM "EstTS" TAG
+  »
+  EstSC
+  « EstTS DTAG 'LC' EVAL 2. TRNC ESTSUM NUM "EstSC" TAG
+  »
+  EstCS
+  « EstSC DTAG DCIRC 2. TRNC ESTSUM NUM "EstCS" TAG
+  »
+  EstST
+  « EstCS DTAG 'LC' EVAL ESTSUM NUM "EstST" TAG
+  »
+  DCIRC
+  « 'Defle' 2. 'SC' 180. ‡ / * EVAL * - EVAL 'AC' STO 'Raio' 2. ‡ * * 360. /
+'AC' * EVAL NUM
+  »
+  cEst
+  «  a
+    « a 20. MOD DUP a SWAP - 20. / SWAP 2. LIST
+    »
+  »
+  Estc
+  «  a
+    « a OBJ DROP SWAP 20. * +
+    »
+  »
+  ESTSUM
+  «  E L
+    « E OBJ DROP SWAP 20. * SWAP L + + cEst
+    »
+  »
+  ESTDIF
+  «  E L
+    « E OBJ DROP SWAP 20. * SWAP + L - cEst
+    »
+  »
+END

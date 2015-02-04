@@ -1,0 +1,39 @@
+DIR
+  ENTRADA
+  ´
+   "PILAR RETANGULAR"
+   {":Nd:
+     :a:
+     :b:
+     :le:
+     :Ma:
+     :Mb:" {1 0} V}
+    INPUT
+    OBJç
+    ç Nd a b le
+    ´
+      lc 'LC' STO
+      R 'Raio' STO
+      'LC' 2 'Raio' * / 'SC' STO @define SC, em radianos
+      PI 'EstPi' STO
+      I 'Defle' STO
+    ª
+  ª  
+  
+  å_b
+  ´
+  ç Ma Mb
+  ´
+   Ma Mb 2 çLIST ABS SORT DUP HEAD SWAP REVLIST HEAD
+   / 0.4 * Ma Mb * SIGN * 0.6 +
+  ª
+  ª
+  
+  M1dmin
+  ´
+  ç Nd h
+    ´
+       Nd 0.015 0.03 h * + *
+    ª
+  ª
+END

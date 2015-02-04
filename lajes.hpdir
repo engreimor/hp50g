@@ -1,0 +1,139 @@
+DIR
+LAJE
+«
+  lx ly p esq dir aci abx
+  «
+   lx ly p esq dir aci abx rx1 'rx1' TAG 
+   lx ly p esq dir aci abx rx2 'rx2' TAG 
+   lx ly p esq dir aci abx ry1 'ry1' TAG 
+   lx ly p esq dir aci abx ry2 'ry2' TAG 
+  »
+»
+rx1
+«
+    lx ly p esq dir aci abx
+  «
+     esq dir aci abx INIT
+     ly lx /
+     a1 b1 c1 d1 CRITERIO
+     < IF THEN lx ly lx / a1 b1 c1 TRAP
+     ELSE lx b1 COMP c1 COMP TRI
+     END     
+     p * lx /
+     LIMPA
+  »
+»
+rx2
+«
+    lx ly p esq dir aci abx
+  «
+     esq dir aci abx INIT
+     ly lx /
+     a1 b1 c1 d1 CRITERIO
+     < IF THEN lx ly lx / c1 d1 a1 TRAP
+     ELSE lx d1 COMP a1 COMP TRI
+     END     
+     p * lx /
+     LIMPA
+  »
+»
+ry1
+«
+    lx ly p esq dir aci abx
+  «
+     esq dir aci abx INIT
+     ly lx /
+     a1 b1 c1 d1 CRITERIO
+     < IF THEN ly a1 b1 TRI
+     ELSE ly lx ly / d1 COMP a1 COMP b1 COMP
+     END     
+     p * ly /
+     LIMPA
+  »
+»
+ry2
+«
+    lx ly p esq dir aci abx
+  «
+     esq dir aci abx INIT
+     ly lx /
+     a1 b1 c1 d1 CRITERIO
+     < IF THEN ly c1 d1 TRI
+     ELSE ly lx ly / b1 COMP c1 COMP d1 COMP
+     END     
+     p * ly /
+     LIMPA
+  »
+»
+
+INIT
+«
+    esq dir aci abx
+  «
+   esq aci ANGULO 'a1' STO
+   esq abx ANGULO 'b1' STO
+   dir abx ANGULO 'c1' STO
+   dir aci ANGULO 'd1' STO 
+  » 
+»
+ANGULO
+«
+    T1 T2
+  «
+   RAD
+   IF T1 T2 == THEN
+      45
+      ELSE IF T1 1 == T2 0 == AND THEN
+      60
+      ELSE IF T1 0 == T2 1 == AND THEN
+      30
+      END
+    END
+    END
+    ‡ 180 / *
+    NUM
+  » 
+»
+CRITERIO
+«
+    x y z h
+  «
+   h TAN z TAN / 1 + INV h TAN *
+   y TAN x TAN / 1 + INV y TAN *
+   + INV NUM
+  » 
+»
+TRI
+«
+    l a b
+  «
+   b TAN a TAN / 1 + 2 * INV b TAN l l * * * NUM
+  » 
+»
+TRAP
+«
+    lx ep a b c
+  «
+   b COMP 'cb' STO
+   c COMP 'cc' STO
+   lx cb cc TRI 'atri1' STO
+   atri1 lx / 2 * 'hmaior' STO
+   b TAN a TAN / 1 + INV lx ep * * 'hmenor' STO
+   1 hmenor hmaior / -  lx * 'lx2' STO
+   lx2 hmaior hmenor - * 2 /
+   atri1 SWAP - NUM
+ »
+»
+
+LIMPA
+«
+ {'a1' 'b1' 'c1' 'd1' 'hmaior' 'hmenor' 'lx2' 'cb' 'cc' 'atri1'} 
+ PURGE 
+»
+COMP
+«  A
+ «
+  ‡ 2 / A - NUM
+ »
+»
+END

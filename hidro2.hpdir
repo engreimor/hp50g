@@ -1,0 +1,22 @@
+DIR
+  GUMB
+  DIR
+    B '(X-15.+2.25)/3.8985'
+    CalcB
+    «  M D
+      « X M - .45 D * + .7797 D * / 'B' STO
+      »
+    »
+  END
+  DP
+  «  A B
+    « A B - 2. ^ …LIST A SIZE 1. - / ƒ
+    »
+  »
+  DAT { 10. 12. 45. 80. 10. 15. }
+  MED
+  « DEPTH LIST 'DAT' STO DAT  A
+    « A OBJ DUP DEPTH ROLLD LIST …LIST SWAP / DAT SWAP
+    »
+  »
+END

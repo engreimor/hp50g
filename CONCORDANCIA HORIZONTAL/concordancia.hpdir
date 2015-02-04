@@ -1,0 +1,219 @@
+DIR
+ESPIRAL
+DIR
+INIT
+´
+CLEAN
+{ {ENTRADA IN} xc yc ts K B ESTACAS}
+MENU
+ª
+
+IN
+´
+"RAMO DE TRANSICAO"
+{":EST_PI:
+:LC:
+:RAIO:
+:DEFLEXAO:" {1 0} V}
+INPUT
+OBJç
+  ç PI lc R I
+  ´
+   lc 'LC' STO
+   R 'Raio' STO
+   'LC' 2 'Raio' * / 'SC' STO @define SC, em radianos
+   PI 'EstPi' STO
+   I 'Defle' STO
+  ª
+ª
+CLEAN
+´
+     'LC' PURGE
+     'Raio' PURGE
+     'SC' PURGE
+     'EstPi' PURGE
+     'Defle' PURGE
+ª
+xc
+´
+   'LC' 'SC' 3 / *
+   1
+   'SC' 2 ^ 14 / -
+   'SC' 4 ^ 440 / +
+   *
+   çNUM
+   "Xc" çTAG
+ª
+
+yc
+´
+  'LC' 1 'SC' 2 ^ 10 / -
+  'SC' 4 ^ 216 / + *
+  çNUM
+  "Yc" çTAG
+ª
+
+ic
+@angulo da corda total do ramo de transicao
+´
+  RAD
+  xc yc / ATAN EVAL çNUM
+  "ic" çTAG
+ª
+
+jc
+@angulo da corda total do ramo de transicao
+´
+  RAD
+  'SC' ic - EVAL çNUM
+  "jc" çTAG
+ª
+
+q
+´
+  RAD
+  yc 'Raio' 'SC' SIN * -
+  çNUM
+  "q" çTAG
+ª
+p
+´
+ RAD
+ xc 'Raio' 1 'SC' COS - * -
+ çNUM
+ "p" çTAG
+ª
+
+ts
+´
+    q 'Raio' p + DEG 'Defle' 2 / TAN * + 
+    çNUM
+    "Ts" çTAG
+ª
+
+K
+@k eh minutos
+´
+ 180 60 * á / 6 'Raio' 'LC' * * INV *
+ EVAL çNUM
+ª
+
+B
+´
+  K 3 *  EVAL çNUM
+ª
+
+EstTS
+´
+  'EstPi' çNUM ts ESTDIF çNUM
+  "EstTS" çTAG
+ª
+EstSC
+´
+  EstTS DTAG D_CIRC ESTSUM çNUM
+  "EstSC" çTAG
+ª
+D_CIRC
+´
+      Raio EVAL 2 á * * 360 / çNUM
+ª
+END
+CIRCULAR
+DIR
+INIT
+´
+DEG
+2 FIX
+"CURVA CIRCULAR SIMPLES"
+{":Raio:
+:AC:
+:EST_PI:" {1 0} V}
+INPUT
+OBJç
+ç R AC ESTPI
+  ´
+    AC 2 / TAN R * 't' STO
+    2 á R AC 360 INV * * * * çNUM cçEst 'D' STO
+    20 R GRAU çNUM 'G20'  STO
+    'G20' EVAL 20 / çNUM 'dm' STO
+    ESTPI 1 * 't' EVAL ESTDIF 'EstPC' STO
+    'EstPC' EVAL 'D' 1 * EVAL Estçc ESTSUM 'EstPT' STO
+  ª
+ª
+DEFLEXAO
+DIR
+   INTEIRA
+   ´
+      'EstPC' EVAL OBJç DROP DROP 1 + 'Ei' STO 
+      'Ei' EVAL 20 *
+      'EstPC' EVAL Estçc - 'a1' STO
+      'EstPT' EVAL Estçc
+      'EstPT' EVAL OBJç DROP DROP 'Ef' STO 
+      'Ef' EVAL 20 * -
+      'a2' STO
+   ª
+END
+
+GRAU
+´
+    ç C R
+    ´
+       C R 2 * / ASIN 2 *
+    ª
+ª
+LIMPA
+´
+     't' PURGE
+     'D' PURGE
+     'G20' PURGE
+     'dm' PURGE
+     'EstPC' PURGE
+     'EstPT' PURGE
+ª
+
+
+
+END
+
+cçEst
+@transforma de metros para estaca+metros
+@considerando estaqueamento 20 a 20 metros
+´
+  ç a
+  ´
+    a 20 MOD
+    DUP a SWAP - 20 / SWAP
+    2 çLIST    
+  ª
+ª
+
+Estçc
+@transforma de estaca para metros
+´
+  ç a
+  ´
+    a OBJç DROP SWAP 20 * +   
+  ª
+ª
+
+ESTSUM
+@SOMA A ESTACA
+´
+  ç E L
+  ´
+    E OBJç DROP SWAP 20 * SWAP L + +
+    cçEst  @VOLTA A NOTACAO DE ESTACA   
+  ª
+ª
+
+ESTDIF
+@SUBTRAI DE ESTACA
+´
+  ç E L
+  ´
+    E OBJç DROP SWAP 20 * SWAP + L -
+    cçEst    @VOLTA A NOTACAO DE ESTACA
+  ª
+ª
+
+END

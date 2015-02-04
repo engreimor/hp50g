@@ -1,0 +1,14 @@
+DIR
+  A 5.
+  DP
+  «  A B
+    « A B - 2. ^ …LIST A SIZE 1. - / ƒ
+    »
+  »
+  DAT { 1. 5. 9. 8. 7. }
+  MED
+  « DEPTH LIST 'DAT' STO DAT  A
+    « A OBJ DUP DEPTH ROLLD LIST …LIST SWAP / DAT SWAP
+    »
+  »
+END
