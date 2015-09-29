@@ -1,9 +1,9 @@
 # hp50g-code
-Some code written in College.
+Some code written in college, for some civil engineering classes.
+
 Maybe it helps someone, maybe not.
 
-
-Sorry but the code is not commented nor translated.
+Sorry, but the code wasn't originaly commented/translated and I lack the time to do so.
 
 ###How to use###
 You'll need HPUserEdit IDE to view/edit/test code ( or any other editor combined with a real calculator or an emulator ). 
